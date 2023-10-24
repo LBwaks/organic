@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "organic products"
+version = "0.1.0"
+description = "Platform where one can get real organic products"
+authors = ["LBwaks <obwakuvictor@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+django = "^4.2.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
