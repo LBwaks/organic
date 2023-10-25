@@ -72,9 +72,7 @@ class Product(models.Model):
         verbose_name=_(""),
         on_delete=models.CASCADE,
     )
-    tag = models.ForeignKey(
-        Tag, related_name="product_tag", verbose_name=_(""), on_delete=models.CASCADE
-    )
+    tag = models.ManyToManyField(Tag, related_name="product_tag", verbose_name=_(""))
     description = RichTextField()
     price = models.IntegerField(_("Price"))
     quantity = models.IntegerField(_("Quantity"))
@@ -122,7 +120,7 @@ class ProductImage(models.Model):
     )
     image = models.ImageField(
         _("Product Image"),
-        upload_to='products/',
+        upload_to="products/",
         height_field=None,
         width_field=None,
         max_length=None,
