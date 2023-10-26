@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Product Details{% endblock title %}
+
+{% block content %}
+    <H1>Product details</H1>
+    <div class="card">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{product.title}}</h5>
+    <p class="card-text">{{product.description}}</p>
+    <a href="{% url 'update-product' product.slug %} " class="btn btn-primary">Update</a>
+    <a href="{% url 'delete-product' product.slug %}" class="btn btn-danger">Delete</a>
+  </div>
+</div>
+{% endblock content %}
+    

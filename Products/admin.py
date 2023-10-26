@@ -48,13 +48,20 @@ class TagAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     """Admin View for Product"""
 
-    list_display = ("product_reference", "title", "category", "price", "quantity")
+    list_display = (
+        "product_reference",
+        "title",
+        "category",
+        "price",
+        "quantity",
+        "created",
+    )
     # list_filter = ('',)
     # inlines = [
     #     Inline,
     # ]
     # raw_id_fields = ('',)
-    readonly_fields = ("user",)
+    readonly_fields = ("user", "product_reference")
     # search_fields = ('',)
     # date_hierarchy = ''
     ordering = ("-created",)

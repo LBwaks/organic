@@ -3,6 +3,7 @@ import random
 import time
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
@@ -69,10 +70,10 @@ class Product(models.Model):
     category = models.ForeignKey(
         Category,
         related_name="product_category",
-        verbose_name=_(""),
+        verbose_name=_("Category"),
         on_delete=models.CASCADE,
     )
-    tag = models.ManyToManyField(Tag, related_name="product_tag", verbose_name=_(""))
+    tag = models.ManyToManyField(Tag, verbose_name=_("Tag"))
     description = RichTextField()
     price = models.IntegerField(_("Price"))
     quantity = models.IntegerField(_("Quantity"))
@@ -87,17 +88,17 @@ class Product(models.Model):
 
     def __str__(self):
         """Unicode representation of Product."""
-        pass
+        return self.title
 
     def save(self, *args, **kwargs):
         """Save method for Product."""
         if not self.product_reference:
             self.product_reference = self.generate_unique_id()
-        super.save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         """Return absolute url for Product."""
-        return ""
+        return reverse("product-details", kwargs={"slug": self.slug})
 
     # TODO: Define custom methods here
     def generate_unique_id(self):
