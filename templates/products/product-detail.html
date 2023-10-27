@@ -7,7 +7,13 @@
   <img src="..." class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">{{product.title}}</h5>
+    <p class="card-text">  <a href="{% url 'user-product' product.user.username %}">{{product.user.username}}</a>  </p>
+    <p class="card-text">  <a href="{% url 'category-product' product.category.slug %}">{{product.category}}</a>  </p>
+    <p class="card-text"> {% for tag in product.tag.all %}
+        <a href="{% url 'tag-product' tag.slug %}">{{tag.name}}</a>
+        {% endfor %} </p>
     <p class="card-text">{{product.description}}</p>
+
     <a href="{% url 'update-product' product.slug %} " class="btn btn-primary">Update</a>
     <a href="{% url 'delete-product' product.slug %}" class="btn btn-danger">Delete</a>
   </div>

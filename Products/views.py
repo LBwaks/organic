@@ -1,6 +1,6 @@
 from typing import Any
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (
     ListView,
@@ -13,6 +13,7 @@ from .models import Category, Tag, Product, ProductImage
 from .forms import ProductForm, EditProductForm
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.utils.text import slugify
 
 # Create your views here.
 
@@ -25,6 +26,12 @@ class ProductListView(ListView):
         queryset = super().get_queryset()
         queryset = queryset.select_related("user", "category").prefetch_related("tag")
         return queryset
+
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        categories = Category.objects.select_related("user")
+        context["categories"] = categories
+        return context
 
 
 class ProductDetailView(DetailView):
@@ -51,7 +58,7 @@ class ProductCreateView(CreateView):
             ProductImage.objects.create(product=p, image=image)
             print(image)
         p.save()
-        
+
         return super(ProductCreateView, self).form_valid(form)
 
 
@@ -98,3 +105,63 @@ class ProductDeleteView(DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
         return super().delete(request, *args, **kwargs)
+
+
+class ProductByCategoryListView(ListView):
+    model = Product
+    template_name = "products/product-category.html"
+    context_object_name = "products"
+
+    def get_queryset(self):
+        self.category = get_object_or_404(Category, slug=self.kwargs.get("slug"))
+        queryset = (
+            super()
+            .get_queryset()
+            .select_related("category", "user")
+            .prefetch_related("tag")
+        )
+        products = queryset.filter(category=self.category)
+
+        return products
+
+
+class ProductByTagListView(ListView):
+    model = Product
+    template_name = "products/product-tag.html"
+    context_object_name = "products"
+
+    def get_queryset(self):
+        self.tag = get_object_or_404(Tag, slug=self.kwargs.get("slug"))
+        queryset = (
+            super()
+            .get_queryset()
+            .select_related("category", "user")
+            .prefetch_related("tag")
+        )
+        products = queryset.filter(tag=self.tag)
+
+        return products
+
+
+class ProductByUserListView(ListView):
+    model = Product
+    template_name = "products/product-user.html"
+    context_object_name = "products"
+
+    def get_queryset(self):
+        self.username = self.kwargs.get("username")  # get username
+        slugified_username = slugify(self.username)  # convert username to slug
+        user = User.objects.filter(username=slugified_username).first()
+        queryset = super().get_queryset()
+        if not user:
+            return Product.objects.none()
+        products = (
+            queryset.filter(user=user)
+            .order_by("-created")
+            .select_related(
+                "user",
+                "category",
+            )
+            .prefetch_related("tag")
+        )
+        return products
