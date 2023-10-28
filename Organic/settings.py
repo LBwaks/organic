@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # installed applications
     "ckeditor",
+    'django_filters',
     # created applications
     "Products",
 ]

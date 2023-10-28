@@ -14,7 +14,7 @@
 <hr>
 <form action="{% url 'product-filter' %}" method="get">
     {% comment %} {% csrf_token %} {% endcomment %}
-    {{filter.form.as_p}}
+    {{product_filter.form.as_p}}
     <input type="submit" value="Submit">
 </form>
             </div>

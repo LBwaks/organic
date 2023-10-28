@@ -68,6 +68,20 @@ Django = ">=3.2"
 django-js-asset = ">=2.0"
 
 [[package]]
+name = "django-filter"
+version = "23.3"
+description = "Django-filter is a reusable Django application for allowing users to filter querysets dynamically."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "django-filter-23.3.tar.gz", hash = "sha256:015fe155582e1805b40629344e4a6cf3cc40450827d294d040b4b8c1749a9fa6"},
+    {file = "django_filter-23.3-py3-none-any.whl", hash = "sha256:65bc5d1d8f4fff3aaf74cb5da537b6620e9214fb4b3180f6c560776b1b6dccd0"},
+]
+
+[package.dependencies]
+Django = ">=3.2"
+
+[[package]]
 name = "django-js-asset"
 version = "2.1.0"
 description = "script tag with additional attributes for django.forms.Media"
@@ -284,4 +298,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "44e2bd12c23b4f0931171b27a590108bd9c81ea451c5b3f9ac9afdc8d155630a"
+content-hash = "dfa543ab6ff3a542120a1bad0973ed1df2fcead02d3a01c61ea586beb8be6abf"

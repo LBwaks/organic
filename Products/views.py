@@ -14,6 +14,9 @@ from .forms import ProductForm, EditProductForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils.text import slugify
+from .filters import ProductFilter
+from django_filters.views import FilterView
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -29,8 +32,13 @@ class ProductListView(ListView):
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
+        # get categories
         categories = Category.objects.select_related("user")
         context["categories"] = categories
+        # product filter
+        context["filter"] = ProductFilter(
+            self.request.GET, queryset=self.get_queryset()
+        )
         return context
 
 
@@ -165,3 +173,42 @@ class ProductByUserListView(ListView):
             .prefetch_related("tag")
         )
         return products
+
+
+class ProductFilterView(FilterView):
+    model = Product
+    template_name = "products/product-filter.html"
+    filterset_class = ProductFilter
+    paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        product_filter = ProductFilter(request.GET, queryset=self.get_queryset())
+        paginator = Paginator(product_filter.qs, self.paginate_by)
+        page_number = request.GET.get("page")
+        products = paginator.get_page(page_number)
+
+        categories = Category.objects.select_related("user")
+        return render(
+            request,
+            self.template_name,
+            {
+                "products": products,
+                "categories": categories,
+                "product_filter": product_filter,
+            },
+        )
+
+    def get_queryset(self):
+        queryset = Product.objects.select_related("user", "category").prefetch_related(
+            "tag"
+        )
+        product_filter = ProductFilter(self.request.GET, queryset=queryset)
+
+        return product_filter.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["product_filter"] = ProductFilter(
+            self.request.GET, queryset=self.get_queryset()
+        )
+        return context

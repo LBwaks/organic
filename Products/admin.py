@@ -51,6 +51,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = (
         "product_reference",
         "title",
+        'unit',
         "category",
         "price",
         "quantity",

@@ -23,10 +23,13 @@ class ProductForm(forms.ModelForm):
         """Meta definition for Productform."""
 
         model = Product
-        fields = ("title", "category",'tag',  "description", "price", "quantity")
+        fields = ("title",'unit', "category",'tag',  "description", "price", "quantity")
         wigdets = {
             "title": forms.TextInput(
                 attrs={"class": "form-control title", "required": True}
+            ),
+            "unit": forms.TextInput(
+                attrs={"class": "form-control unit", "required": True}
             ),
             "category": forms.Select(
                 attrs={"class": "form-select category", "required": True}
@@ -62,10 +65,13 @@ class EditProductForm(forms.ModelForm):
         """Meta definition for Productform."""
 
         model = Product
-        fields = ("title", "category",'tag', "description", "price", "quantity")
+        fields = ("title", 'unit',"category",'tag', "description", "price", "quantity")
         wigdets = {
             "title": forms.TextInput(
                 attrs={"class": "form-control title", "required": True}
+            ),
+            "unit": forms.TextInput(
+                attrs={"class": "form-control unit", "required": True}
             ),
             "category": forms.Select(
                 attrs={"class": "form-select category", "required": True}

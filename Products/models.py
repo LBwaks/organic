@@ -75,6 +75,7 @@ class Product(models.Model):
     )
     tag = models.ManyToManyField(Tag, verbose_name=_("Tag"))
     description = RichTextField()
+    unit = models.CharField(_("Unit"), max_length=50)
     price = models.IntegerField(_("Price"))
     quantity = models.IntegerField(_("Quantity"))
     created = models.DateTimeField(_(""), auto_now=False, auto_now_add=True)
