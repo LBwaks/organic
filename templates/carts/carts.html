@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Products{% endblock title %}
+
+{% block content %}
+    <h1>Product list </h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+
+
+            </div>
+            <div class="col-md-6">
+                {% for cart_item in cart_items %}
+    <div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title"><a href="{{product.get_absolute_url}}">Product :{{cart_item.product.title}}</a></h5>
+    <p>Quantity :{{cart_item.quantity}} </p>
+    <p>Unit Price : {{cart_item.product.price}}</p>
+    <p>Total Price :{{cart_item.price}}</p>
+    {{product.slug}}
+    
+  </div>
+</div>
+    </div>
+    
+    {% empty %}
+    no products
+    {% endfor %}
+<h1>Total ==== {{cart.total_price}}</h1>
+            </div>
+
+             
+        </div>
+    </div>
+   
+{% endblock content %}
+    

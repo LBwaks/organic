@@ -15,6 +15,8 @@
         <p class="card-text">Price :{{product.price}}</p>
     <p class="card-text">{{product.description}}</p>
 
+    <a href="{% url 'add-to-cart' product.slug %}" class="btn btn-primary">Add to cart </a>
+
     <a href="{% url 'update-product' product.slug %} " class="btn btn-primary">Update</a>
     <a href="{% url 'delete-product' product.slug %}" class="btn btn-danger">Delete</a>
   </div>

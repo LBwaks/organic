@@ -41,10 +41,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # installed applications
     "ckeditor",
-    'django_filters',
+    "django_filters",
     # created applications
     "Products",
-    'Cart',
+    "Cart",
 ]
 
 MIDDLEWARE = [
@@ -62,7 +62,7 @@ ROOT_URLCONF = "Organic.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR.joinpath('templates')],
+        "DIRS": [BASE_DIR.joinpath("templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -77,7 +77,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "Organic.wsgi.application"
 
-
+# Session
+# SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+#     }
+# }
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 

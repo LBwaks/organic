@@ -11,7 +11,8 @@ class Cart(models.Model):
 
     # TODO: Define fields here
     user = models.ForeignKey(User, verbose_name=_(""), on_delete=models.CASCADE)
-    items = models.ManyToManyField(Product, through='CartItem', verbose_name=_(""))
+    items = models.ManyToManyField(Product, through="CartItem", verbose_name=_(""))
+    created = models.DateTimeField(_(""), auto_now=False, auto_now_add=True)
 
     class Meta:
         """Meta definition for Cart."""
@@ -32,32 +33,49 @@ class Cart(models.Model):
     #     return ('')
 
     # TODO: Define custom methods here
-    class CartItem(models.Model):
-        """Model definition for CartItem."""
+    @property
+    def total_price(self):
+        cart_items = self.cartitems.all()
+        total = sum([item.price for item in cart_items])
+        return total
 
-        # TODO: Define fields here
-        cart = models.ForeignKey('Cart', verbose_name=_(""), on_delete=models.CASCADE)
-        product = models.ForeignKey(
-            Product, verbose_name=_(""), on_delete=models.CASCADE
-        )
-        quantity = models.PositiveIntegerField(_(""), default=1)
+    @property
+    def total_quantity(self):
+        cart_items = self.cartitems.all()
+        quantity = sum([item.quantity for item in cart_items])
+        return quantity
 
-        class Meta:
-            """Meta definition for CartItem."""
 
-            verbose_name = "CartItem"
-            verbose_name_plural = "CartItems"
+class CartItem(models.Model):
+    """Model definition for CartItem."""
 
-        def __str__(self):
-            """Unicode representation of CartItem."""
-            return f"{self.quantity} * {self.product}"
+    # TODO: Define fields here
+    cart = models.ForeignKey(
+        "Cart", verbose_name=_(""), related_name="cartitems", on_delete=models.CASCADE
+    )
+    product = models.ForeignKey(Product, verbose_name=_(""), on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(_(""), default=1)
 
-        # def save(self):
-        #     """Save method for CartItem."""
-        #     pass
+    class Meta:
+        """Meta definition for CartItem."""
 
-        # def get_absolute_url(self):
-        #     """Return absolute url for CartItem."""
-        #     return ""
+        verbose_name = "CartItem"
+        verbose_name_plural = "CartItems"
 
-        # TODO: Define custom methods here
+    def __str__(self):
+        """Unicode representation of CartItem."""
+        return f"{self.quantity} * {self.product}"
+
+    # def save(self):
+    #     """Save method for CartItem."""
+    #     pass
+
+    # def get_absolute_url(self):
+    #     """Return absolute url for CartItem."""
+    #     return ""
+
+    # TODO: Define custom methods here
+    @property
+    def price(self):
+        total_price = self.product.price * self.quantity
+        return total_price
