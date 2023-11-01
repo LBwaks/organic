@@ -10,9 +10,10 @@ class Cart(models.Model):
     """Model definition for Cart."""
 
     # TODO: Define fields here
-    user = models.ForeignKey(User, verbose_name=_(""), on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name=_(""), on_delete=models.CASCADE,blank= True,null=True)
     items = models.ManyToManyField(Product, through="CartItem", verbose_name=_(""))
     created = models.DateTimeField(_(""), auto_now=False, auto_now_add=True)
+    session_id = models.CharField(_(""), blank=True, null=True, max_length=100)
 
     class Meta:
         """Meta definition for Cart."""
@@ -22,7 +23,7 @@ class Cart(models.Model):
 
     def __str__(self):
         """Unicode representation of Cart."""
-        return f"Cart for {self.user.username}"
+        return f"Cart for {self.created}"
 
     # def save(self):
     #     """Save method for Cart."""
