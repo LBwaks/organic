@@ -9,9 +9,14 @@
 
 <hr>
 <div class="row">
-{% for category in categories %}
+{% for category,tags in cat_tag_dict.items %}
 <div class="col-md-3">
-<p>category:{{category.name}}</p>
+<p>category: <a href="{% url 'category-product' category.slug %}">{{category.name}}</a></p>
+{% for tag in tags %}
+<li>tag: <a href="{% url 'tag-product' tag.slug %}">{{tag.name}}</a></li>
+{% empty %}
+<p>No tag found !</p>
+{% endfor %}
 </div>
 
 {% empty %}
