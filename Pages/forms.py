@@ -3,6 +3,14 @@ from Pages.models import Contact
 from phonenumber_field.formfields import PhoneNumberField
 
 
+class ProductSearchForm(forms.Form):
+    q = forms.CharField(
+        required=True,
+        max_length="250",
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+    )
+
+
 class ContactForm(forms.ModelForm):
     """Form definition for Contact."""
 

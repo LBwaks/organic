@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock title %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
 
 
     <h1>I am home </h1>
+    <form action="{% url 'search' %}" method="get">
+        <input type="search" name="q" id="" required>
+        {% comment %} {{form|crispy}} {% endcomment %}
+        <input type="submit" value="Search">
+    </form>
 
 <hr>
 <div class="row">

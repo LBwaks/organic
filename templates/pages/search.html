@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Search Results{% endblock title %}
+{% block content %}
+RESULTS FOR {{q}}
+    {% for result in results%}   
+    <p>tite:{{result.title}} </p>
+    {% empty %}
+    <p>no such product</p>
+    {% endfor %}
+{% endblock content %}
+    

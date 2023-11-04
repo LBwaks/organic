@@ -1,11 +1,38 @@
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView, ListView
 from Products.models import Product, Category, Tag
-from Pages.forms import ContactForm
+from Pages.forms import ContactForm, ProductSearchForm
 from django.core.mail import BadHeaderError, send_mail
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 # Create your views here.
+
+
+def product_search(request):
+    form = ProductSearchForm
+    results = None
+    if request.method == "GET":
+        if "q" in request.GET:
+            form = ProductSearchForm(request.GET)
+            if form.is_valid():
+                q = form.cleaned_data["q"]
+                print(q)
+                search_query = SearchQuery(q)
+                search_vector = (
+                    SearchVector("title")
+                    + SearchVector("category__name", weight="B")
+                    # + SearchVector("tag", weight="B")
+                    # + SearchVector("description", weight="A")
+                )
+                search_rank = SearchRank(search_vector, search_query)
+                results = Product.objects.annotate(
+                    search=search_vector, rank=search_rank
+                ).order_by("-rank")
+
+    return render(
+        request, "pages/search.html", {"form": form, "results": results, "q": q}
+    )
 
 
 class Home(ListView):
