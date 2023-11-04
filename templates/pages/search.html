@@ -2,7 +2,7 @@
 {% block title %}Search Results{% endblock title %}
 {% block content %}
 RESULTS FOR {{q}}
-    {% for result in results%}   
+    {% for result in results %}   
     <p>tite:{{result.title}} </p>
     {% empty %}
     <p>no such product</p>

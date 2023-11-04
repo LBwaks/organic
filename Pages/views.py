@@ -19,16 +19,15 @@ def product_search(request):
                 q = form.cleaned_data["q"]
                 print(q)
                 search_query = SearchQuery(q)
-                search_vector = (
-                    SearchVector("title")
-                    + SearchVector("category__name", weight="B")
-                    # + SearchVector("tag", weight="B")
-                    # + SearchVector("description", weight="A")
-                )
+                search_vector = SearchVector("search_vector")
+
                 search_rank = SearchRank(search_vector, search_query)
+                # results = Product.objects.filter(title__contains=q)
                 results = Product.objects.annotate(
                     search=search_vector, rank=search_rank
-                ).order_by("-rank")
+                ).filter(rank__gte=0.3)
+                # .order_by("-rank")
+                print(results)
 
     return render(
         request, "pages/search.html", {"form": form, "results": results, "q": q}

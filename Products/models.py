@@ -7,6 +7,9 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
+from django.contrib.postgres.search import SearchVectorField, SearchVector
+from django.db.models.functions import Concat
+from django.db.models import Value
 
 # Create your models here.
 
@@ -81,11 +84,15 @@ class Product(models.Model):
     created = models.DateTimeField(_(""), auto_now=False, auto_now_add=True)
     updated = models.DateTimeField(_(""), auto_now=True, auto_now_add=False)
 
+    search_vector = SearchVectorField(null=True, editable=False)
+    search_rank = models.FloatField(null=True, editable=False)
+
     class Meta:
         """Meta definition for Product."""
 
         verbose_name = "Product"
         verbose_name_plural = "Products"
+        indexes = [models.Index(fields=["search_vector"])]
 
     def __str__(self):
         """Unicode representation of Product."""
@@ -93,9 +100,19 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         """Save method for Product."""
+        self.search_vector = (
+            SearchVector("title")
+            + SearchVector("category__name")
+            + SearchVector("tag__name")
+            + SearchVector("description")
+        )
+        #     Concat("category__name", Value(" "), "title"),
+        #     Concat('tag__name', Value(' '), 'title'),
+        #     "description",
+        # )
         if not self.product_reference:
             self.product_reference = self.generate_unique_id()
-        super().save(*args, **kwargs)
+        super(Product, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         """Return absolute url for Product."""
