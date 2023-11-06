@@ -92,7 +92,7 @@ class Product(models.Model):
 
         verbose_name = "Product"
         verbose_name_plural = "Products"
-        indexes = [models.Index(fields=["search_vector"])]
+        indexes = [models.Index(fields=["title"])]
 
     def __str__(self):
         """Unicode representation of Product."""
@@ -100,14 +100,20 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         """Save method for Product."""
-        self.search_vector = (
-            SearchVector("title")
-            + SearchVector("category__name")
-            + SearchVector("tag__name")
-            + SearchVector("description")
-        )
+        # self.search_vector = (
+        #     SearchVector("title")
+        #     + SearchVector("category__name")
+        #     + SearchVector("tag__name")
+        #     + SearchVector("description")
+        # )
         #     Concat("category__name", Value(" "), "title"),
         #     Concat('tag__name', Value(' '), 'title'),
+        #     "description",
+        # )
+        # self.search_vector = SearchVector(
+        #     "title",
+        #     Concat("category__name", Value(" "), "title"),
+        #     Concat("tag__name", Value(" "), "title"),
         #     "description",
         # )
         if not self.product_reference:

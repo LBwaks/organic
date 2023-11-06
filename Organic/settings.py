@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     # created applications
     "Products",
     "Cart",
-    'Pages'
+    'Pages',
+    'Account',
 ]
 
 # crispy form
