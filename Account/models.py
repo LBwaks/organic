@@ -16,7 +16,7 @@ class Profile(models.Model):
     fname = models.CharField(_("First Name"), max_length=50)
     lname = models.CharField(_("Last Name"), max_length=50)
     email = models.EmailField(_("Email"), unique=True, max_length=254)
-    tell = PhoneNumberField(_(""))
+    tell = PhoneNumberField(_("Tell"))
     profile = models.ImageField(
         _("Profile"),
         upload_to="profiles/",
