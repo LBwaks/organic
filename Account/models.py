@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 from django.utils.translation import gettext as _
 import uuid
 from phonenumber_field.modelfields import PhoneNumberField
@@ -11,7 +12,9 @@ class Profile(models.Model):
     """Model definition for Profile."""
 
     # TODO: Define fields here
-    user = models.ForeignKey(User, verbose_name=_(""), on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User, related_name="user_profile", on_delete=models.CASCADE
+    )
     slug = models.UUIDField(editable=False, default=uuid.uuid4)
     fname = models.CharField(_("First Name"), max_length=50)
     lname = models.CharField(_("Last Name"), max_length=50)
@@ -24,7 +27,6 @@ class Profile(models.Model):
         width_field=None,
         max_length=None,
         blank=True,
-        
     )
     created = models.DateTimeField(_(""), auto_now=False, auto_now_add=True)
 
@@ -36,7 +38,7 @@ class Profile(models.Model):
 
     def __str__(self):
         """Unicode representation of Profile."""
-        return f'{self.fname} {self.lname}'
+        return f"{self.fname} {self.lname}"
 
     # def save(self):
     #     """Save method for Profile."""
@@ -44,7 +46,7 @@ class Profile(models.Model):
 
     def get_absolute_url(self):
         """Return absolute url for Profile."""
-        return ""
+        return reverse("profile")
 
     # TODO: Define custom methods here
 
@@ -53,7 +55,9 @@ class Shipping(models.Model):
     """Model definition for Shipping."""
 
     # TODO: Define fields here
-    user = models.ForeignKey(User, verbose_name=_(""), on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, related_name="user_shipping", on_delete=models.CASCADE
+    )
     fname = models.CharField(_("First Name"), max_length=50)
     lname = models.CharField(_("Last Name"), max_length=50)
     slug = models.UUIDField(editable=False, default=uuid.uuid4)
@@ -74,7 +78,7 @@ class Shipping(models.Model):
 
     def __str__(self):
         """Unicode representation of Shipping."""
-        return f'{self.fname} {self.lname}'
+        return f"{self.fname} {self.lname}"
 
     # def save(self):
     #     """Save method for Shipping."""
@@ -82,7 +86,7 @@ class Shipping(models.Model):
 
     def get_absolute_url(self):
         """Return absolute url for Shipping."""
-        return ""
+        return reverse("products")
 
     # TODO: Define custom methods here
 
@@ -97,7 +101,7 @@ class Billing(models.Model):
     slug = models.UUIDField(editable=False, default=uuid.uuid4)
     email = models.CharField(_("Email"), max_length=50)
     tell = PhoneNumberField(_("Phone Number"))
-    status = models.CharField(_(""),default='pending', max_length=50)
+    status = models.CharField(_(""), default="pending", max_length=50)
     created = models.DateTimeField(_(""), auto_now=False, auto_now_add=True)
 
     class Meta:
@@ -108,7 +112,7 @@ class Billing(models.Model):
 
     def __str__(self):
         """Unicode representation of Billing."""
-        return f'{self.fname} {self.lname}'
+        return f"{self.fname} {self.lname}"
 
     # def save(self):
     #     """Save method for Billing."""

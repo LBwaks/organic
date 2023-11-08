@@ -1,0 +1,11 @@
+
+{% extends 'base.html' %}
+{% block title %}Update Product{% endblock title %}
+
+{% block content %}
+    <h1>User profile</h1>
+<p>Lastname:</p>
+   <p>Tell:</p>
+   <a href="{% url 'change' user.user_profile.slug %}">Update</a>
+{% endblock content %}
+    

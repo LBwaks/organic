@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Update Product{% endblock title %}
+
+{% block content %}
+    <h1>Update product</h1>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ myform.media }}
+        
+         <input type="submit"/>
+    </form>
+{% endblock content %}
+    
