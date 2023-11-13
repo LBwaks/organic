@@ -63,10 +63,11 @@ class ProductCreateView(CreateView):
         p = form.save(commit=False)
         p.user = self.request.user
         images = self.request.FILES.getlist("images")
-        for image in images:
-            ProductImage.objects.create(product=p, image=image)
-            print(image)
+        # images = form.cleaned_data["images"]
         p.save()
+        for image in images:
+            print(image)
+            ProductImage.objects.create(product=p, image=image)
 
         return super(ProductCreateView, self).form_valid(form)
 

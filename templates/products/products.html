@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Products{% endblock title %}
-
+{% load humanize %}
 {% block content %}
  <!-- Start Breadcrumbs -->
     <div class="breadcrumbs">
@@ -292,7 +292,7 @@
                                                     <li><span>4.0 Review(s)</span></li>
                                                 </ul>
                                                 <div class="price">
-                                                    <span>Ksh {{product.price}}</span>
+                                                    <span>Ksh {{product.price |floatformat:"2g"}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -307,12 +307,34 @@
                                         <!-- Pagination -->
                                         <div class="pagination left">
                                             <ul class="pagination-list">
-                                                <li><a href="javascript:void(0)"><i class="lni lni-chevron-right"></i></a></li>
-                                                <li><a href="javascript:void(0)">1</a></li>
-                                                <li class="active"><a href="javascript:void(0)">2</a></li>
-                                                <li><a href="javascript:void(0)">3</a></li>
-                                                <li><a href="javascript:void(0)">4</a></li>
-                                                <li><a href="javascript:void(0)"><i class="lni lni-chevron-right"></i></a></li>
+                                                {% if page_obj.has_previous %}
+                                                
+                                                <li><a href="?page={{page_obj.previous_page_number}}"><i class="lni lni-chevron-right"></i></a></li>
+                                                    {% if page_obj.number > 3 %}
+                                                    <a href="?page=1">1</a>
+                                                            {% if page_obj.number > 4 %}
+                                                            <span>...</span>
+                                                            {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                                {% for num in page_obj.paginator.page_range %}
+                                                    {% if page_obj.number == num %}
+                                                        <li class="active"><a href="?page={{num}}">{{num}}</a></li>
+                                                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+                                                        <li><a href="?page={{num}}">{{num}}</a></li>
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                                {% if page_obj.has_next %}
+                                                    {% if page_obj.number < page_obj.paginator.num_pages|add:'-3'%}
+                                                        <span>...</span>
+                                                        <a href="?page={{page_obj.paginator.num_pages}}">{{page_obj.paginator.num_pages}}</a>
+                                                    {% elif page_obj.number < page_obj.paginator.num_pages|add:'-2' %}
+                                                        <a href="?page={{page_obj.paginator.num_pages}}">{{page_obj.paginator.num_pages}}</a>
+                                                    {% endif %}
+                                                
+                                                    <li><a href="?page={{page_obj.next_page_number}}"><i class="lni lni-chevron-right"></i></a></li>
+                                                {% endif %}
                                             </ul>
                                         </div>
                                         <!--/ End Pagination -->

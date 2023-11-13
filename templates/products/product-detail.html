@@ -4,7 +4,10 @@
 {% block content %}
     <H1>Product details</H1>
     <div class="card">
-  <img src="..." class="card-img-top" alt="...">
+      {% for image in product.image.all %}
+      <img src="{{image.name}}" class="card-img-top" alt="...">
+      {% endfor %}
+  
   <div class="card-body">
     <h5 class="card-title">{{product.title}}</h5>
     <p class="card-text">  <a href="{% url 'user-product' product.user.username %}">{{product.user.username}}</a>  </p>

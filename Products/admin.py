@@ -51,7 +51,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = (
         "product_reference",
         "title",
-        'unit',
+        "unit",
         "category",
         "price",
         "quantity",
@@ -70,3 +70,19 @@ class ProductAdmin(admin.ModelAdmin):
     def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
         obj.user = request.user
         return super().save_model(request, obj, form, change)
+
+
+@admin.register(ProductImage)
+class ProductImageAdmin(admin.ModelAdmin):
+    """Admin View for ProductImage"""
+
+    list_display = ("product", "image")
+    # list_filter = ('',)
+    # inlines = [
+    #     Inline,
+    # ]
+    # raw_id_fields = ('',)
+    # readonly_fields = ('',)
+    # search_fields = ('',)
+    # date_hierarchy = ''
+    # ordering = ('',)
