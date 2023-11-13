@@ -24,6 +24,7 @@ from django.core.paginator import Paginator
 class ProductListView(ListView):
     model = Product
     template_name = "products/products.html"
+    paginate_by = 12
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -179,7 +180,7 @@ class ProductFilterView(FilterView):
     model = Product
     template_name = "products/product-filter.html"
     filterset_class = ProductFilter
-    paginate_by = 10
+    paginate_by = 12
 
     def get(self, request, *args, **kwargs):
         product_filter = ProductFilter(request.GET, queryset=self.get_queryset())
