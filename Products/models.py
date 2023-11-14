@@ -159,4 +159,4 @@ class ProductImage(models.Model):
 
     def __str__(self):
         """Unicode representation of ProductImage."""
-        pass
+        return self.product.title
