@@ -10,6 +10,7 @@ from ckeditor.fields import RichTextField
 from django.contrib.postgres.search import SearchVectorField, SearchVector
 from django.db.models.functions import Concat
 from django.db.models import Value
+from .choices import RATINGS
 
 # Create your models here.
 
@@ -160,3 +161,30 @@ class ProductImage(models.Model):
     def __str__(self):
         """Unicode representation of ProductImage."""
         return self.product.title
+
+
+class Rating(models.Model):
+    """Model definition for Rating."""
+
+    # TODO: Define fields here
+    user = models.ForeignKey(User, verbose_name=_("User"), on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product,
+        verbose_name=_("Product"),
+        related_name="product_ratings",
+        on_delete=models.CASCADE,
+    )
+    title = models.CharField(_("Subject"), max_length=50)
+    ratings = models.IntegerField(_("Ratings"), choices=RATINGS, max_length=50)
+    review = models.TextField(_("Review"))
+    created = models.DateTimeField(_(""), auto_now=False, auto_now_add=True)
+
+    class Meta:
+        """Meta definition for Rating."""
+
+        verbose_name = "Rating"
+        verbose_name_plural = "Ratings"
+
+    def __str__(self):
+        """Unicode representation of Rating."""
+        return f"{self.product} has {self.ratings} ratings"

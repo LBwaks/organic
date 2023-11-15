@@ -1,6 +1,6 @@
 from typing import Any
 from django.contrib import admin
-from .models import Category, Tag, Product, ProductImage
+from .models import Category, Tag, Product, ProductImage, Rating
 
 
 # Register your models here.
@@ -77,6 +77,22 @@ class ProductImageAdmin(admin.ModelAdmin):
     """Admin View for ProductImage"""
 
     list_display = ("product", "image")
+    # list_filter = ('',)
+    # inlines = [
+    #     Inline,
+    # ]
+    # raw_id_fields = ('',)
+    # readonly_fields = ('',)
+    # search_fields = ('',)
+    # date_hierarchy = ''
+    # ordering = ('',)
+
+
+@admin.register(Rating)
+class RatingsAdmin(admin.ModelAdmin):
+    """Admin View for Rating"""
+
+    list_display = ("product", "title", "ratings", "review")
     # list_filter = ('',)
     # inlines = [
     #     Inline,
