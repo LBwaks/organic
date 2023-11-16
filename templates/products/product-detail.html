@@ -167,7 +167,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-12">
                         <div class="single-block give-review">
-                            <h4>4.5 (Overall)</h4>
+                            <h4>{{product.average_rating | stringformat:".1f"}} (Overall)</h4>
                             <ul>
                                 <li>
                                     <span>5 stars - 38</span>
@@ -210,6 +210,25 @@
                                     <i class="lni lni-star"></i>
                                 </li>
                             </ul>
+                            <ul>
+                                <hr>
+  {% for rating, count in product.ratingCounter.items %}
+    {% comment %} <li>{{ rating }} stars: {{ count }}</li> {% endcomment %}
+    
+    {% if rating == 1 %}
+        <li>{{ rating }} stars: {{ count }}</li> 1 start
+    {% elif rating == 2  %}
+        <li>{{ rating }} stars: {{ count }}</li> stat 2
+    {% elif rating == 3 %}
+    <li>{{ rating }} stars: {{ count }}</li> start 3
+    {% elif rating == 4 %}
+    <li>{{ rating }} stars: {{ count }}</li>start 4
+    {% elif rating == 5 %}
+    <li>{{ rating }} stars: {{ count }}</li> start 5
+    {% endif %}
+        
+  {% endfor %}
+</ul>
                             <!-- Button trigger modal -->
                             <button type="button" class="btn review-btn" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
@@ -222,64 +241,78 @@
                             <div class="reviews">
                                 <h4 class="title">Latest Reviews</h4>
                                 <!-- Start Single Review -->
+                                {% for review in product.product_ratings.all %}
                                 <div class="single-review">
-                                    <img src="assets/images/blog/comment1.jpg" alt="#">
+                                    <img src="{{review.user.user_profile.profile.url}}" alt="#">
                                     <div class="review-info">
-                                        <h4>Awesome quality for the price
-                                            <span>Jacob Hammond
+                                        <h4>{{review.title}}
+                                            <span>{{review.user.username}}
                                             </span>
                                         </h4>
                                         <ul class="stars">
+                                            
+                                            {% if review.ratings == 1 %}
+                                                <li><i class="lni lni-star-filled"></i></li>                                            
+                                                <i class="lni lni-star"></i>
+                                                <i class="lni lni-star"></i>
+                                                <i class="lni lni-star"></i>
+                                                <i class="lni lni-star"></i>
+                                            {% elif  review.ratings == 2 %}
+                                                <li><i class="lni lni-star-filled"></i></li>                                            
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <i class="lni lni-star"></i>
+                                                <i class="lni lni-star"></i>
+                                                <i class="lni lni-star"></i>                                            
+
+                                            {% elif review.ratings == 3 %}
+                                                <li><i class="lni lni-star-filled"></i></li>                                            
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <i class="lni lni-star"></i>
+                                                <i class="lni lni-star"></i>
+
+                                            {% elif review.ratings == 4 %}
+                                                <li><i class="lni lni-star-filled"></i></li>                                            
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <i class="lni lni-star"></i>
+
+                                            {% elif review.ratings == 5 %}
+                                                <li><i class="lni lni-star-filled"></i></li>                                            
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                            {% endif %}
+                                                
+                                            
+                                            {% comment %} <li><i class="lni lni-star-filled"></i></li>
                                             <li><i class="lni lni-star-filled"></i></li>
                                             <li><i class="lni lni-star-filled"></i></li>
                                             <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
+                                             
+                                            <i class="lni lni-star"></i> {% endcomment %}
                                         </ul>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor...</p>
+                                        <p>{{review.review}}</p>
+                                        {% comment %} <p>Aveg : {{product.average_rating}}</p> {% endcomment %}
                                     </div>
                                 </div>
+                                {% empty %}
+                                <div class="single-review">
+                                    
+                                    <div class="review-info">
+                                        <h4> No reviews for this product.
+                                           
+                                        </h4>
+                                        
+                                        
+                                    </div>
+                                </div>
+                                {% endfor %}
                                 <!-- End Single Review -->
-                                <!-- Start Single Review -->
-                                <div class="single-review">
-                                    <img src="assets/images/blog/comment2.jpg" alt="#">
-                                    <div class="review-info">
-                                        <h4>My husband love his new...
-                                            <span>Alex Jaza
-                                            </span>
-                                        </h4>
-                                        <ul class="stars">
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star"></i></li>
-                                        </ul>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor...</p>
-                                    </div>
-                                </div>
-                                <!-- End Single Review -->
-                                <!-- Start Single Review -->
-                                <div class="single-review">
-                                    <img src="assets/images/blog/comment3.jpg" alt="#">
-                                    <div class="review-info">
-                                        <h4>I love the built quality...
-                                            <span>Jacob Hammond
-                                            </span>
-                                        </h4>
-                                        <ul class="stars">
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                        </ul>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor...</p>
-                                    </div>
-                                </div>
+                                
+                               
                                 <!-- End Single Review -->
                             </div>
                         </div>

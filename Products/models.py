@@ -8,9 +8,11 @@ from django.utils.translation import gettext as _
 from autoslug import AutoSlugField
 from ckeditor.fields import RichTextField
 from django.contrib.postgres.search import SearchVectorField, SearchVector
-from django.db.models.functions import Concat
-from django.db.models import Value
+
+# from django.db.models.functions import Concat
+# from django.db.models import Value
 from .choices import RATINGS
+from django.db.models import Avg, Count
 
 # Create your models here.
 
@@ -124,6 +126,25 @@ class Product(models.Model):
     def get_absolute_url(self):
         """Return absolute url for Product."""
         return reverse("product-details", kwargs={"slug": self.slug})
+
+    @property
+    def average_rating(self):
+        rating = Rating.objects.filter(product=self).aggregate(average=Avg("ratings"))
+        avg = rating["average"] or 0
+        return float(avg)
+
+    @property
+    def ratingCounter(self):
+        ratings = (
+            Rating.objects.filter(product=self)
+            .values("ratings")
+            .annotate(count=Count("ratings"))
+        )
+        # Construct a dictionary to hold the counts
+        rating_counts = {rating["ratings"]: rating["count"] for rating in ratings}
+
+        # Return the dictionary containing counts for each star rating
+        return rating_counts
 
     # TODO: Define custom methods here
     def generate_unique_id(self):
