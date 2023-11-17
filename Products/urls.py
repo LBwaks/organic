@@ -9,6 +9,7 @@ from .views import (
     ProductByTagListView,
     ProductByUserListView,
     ProductFilterView,
+    # RatingCreateView,
 )
 
 urlpatterns = [
@@ -27,4 +28,5 @@ urlpatterns = [
     ),
     path("tag-product/<slug>", ProductByTagListView.as_view(), name="tag-product"),
     path("product-filter/", ProductFilterView.as_view(), name="product-filter"),
+    # path("ratings/<slug>", RatingCreateView.as_view(), name="ratings"),
 ]

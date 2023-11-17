@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product, Tag, ProductImage
+from .models import Product, Tag, ProductImage, Rating
 from ckeditor.widgets import CKEditorWidget
 
 
@@ -116,6 +116,28 @@ class EditProductForm(forms.ModelForm):
                 attrs={"class": "form-control price", "required": True}
             ),
             "quantity": forms.TextInput(
+                attrs={"class": "form-control quantity", "required": True}
+            ),
+        }
+
+
+class RatingForm(forms.ModelForm):
+    """Form definition for Rating."""
+
+    class Meta:
+        """Meta definition for Ratingform."""
+
+        model = Rating
+        fields = ("title", "ratings", "review")
+
+        widget = {
+            "title": forms.TextInput(
+                attrs={"class": "form-control title", "required": True}
+            ),
+            "ratings": forms.Select(
+                attrs={"class": "form-select ratings", "required": True}
+            ),
+            "review": forms.Textarea(
                 attrs={"class": "form-control quantity", "required": True}
             ),
         }

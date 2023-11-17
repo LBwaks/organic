@@ -9,8 +9,8 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
-from .models import Category, Tag, Product, ProductImage
-from .forms import ProductForm, EditProductForm
+from .models import Category, Tag, Product, ProductImage, Rating
+from .forms import ProductForm, EditProductForm, RatingForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils.text import slugify
@@ -51,7 +51,27 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         product = self.get_object()
         context["product"] = product
+        context['form'] = RatingForm()
         return context
+
+    def post(self,  request: HttpRequest, *args: str, **kwargs):
+        if self.request.method == "POST":
+            form = RatingForm(self.request.POST)
+            if form.is_valid():
+                user = self.request.user
+                product = self.get_object()
+                title = form.cleaned_data["title"]
+                ratings = form.cleaned_data["ratings"]
+                review = form.cleaned_data["review"]
+                new_rating = Rating(
+                    product=product,
+                    user=user,
+                    title=title,
+                    ratings=ratings,
+                    review=review,
+                )
+                new_rating.save()
+        return redirect(self.request.path_info)
 
 
 class ProductCreateView(CreateView):
@@ -214,3 +234,16 @@ class ProductFilterView(FilterView):
             self.request.GET, queryset=self.get_queryset()
         )
         return context
+
+
+# class RatingCreateView(CreateView):
+#     model = Rating
+#     template_name = "products/product-detail.html"
+
+#     def form_valid(self, form):
+#         f = form.save(commit=False)
+#         f.user = self.request.user
+#         slug = self.kwargs["slug"]
+#         f.product = Product.objects.get(slug=slug)
+#         f.save()
+#         return super(RatingCreateView, self).form_valid(form)
