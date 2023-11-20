@@ -93,3 +93,28 @@ def remove_cart_item(request, slug):
     else:
         cart_item.delete()
     return redirect("cart")
+
+
+def delete_cart(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+
+    if request.user.is_authenticated:
+        cart = Cart.objects.get(user=request.user)
+    else:
+        cart = Cart.objects.get(
+            session_id=request.session.get(
+                "guest",
+            )
+        )
+    try:
+        cart_item = CartItem.objects.get(product=product, cart=cart)
+
+    except CartItem.DoesNotExist:
+        return redirect("cart")
+
+    cart_item.delete()
+    return redirect("cart")
+
+
+def checkout(request):
+    return render(request, "carts/checkout.html")

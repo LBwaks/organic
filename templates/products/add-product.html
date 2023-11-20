@@ -1,14 +1,60 @@
 {% extends 'base.html' %}
 {% block title %}Add Product{% endblock title %}
-
+{% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
-    <h1>Add product</h1>
+     <!-- Start Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="breadcrumbs-content">
+                        <h1 class="page-title">Post Product</h1>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <ul class="breadcrumb-nav">
+                        <li><a href="{% url 'home' %}"><i class="lni lni-home"></i> Home</a></li>
+                        <li><a href="{% url 'products' %}">Products</a></li>
+                        <li>Post Product</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
 
-    <form action="" method="post" enctype ="multipart/form-data">
-        {% csrf_token %}
-        {{ myform.media }}
-        {{form.as_p}}
-         <input type="submit"/>
-    </form>
+     <section class="product-form-wrapper section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <div class="product-form ">
+                        
+                        <div class="title mx-auto text-center">Add Product form</div>
+                       <form action="" class="p-4e" method="post" enctype ="multipart/form-data">
+                            <div class="single-form form-default p-5">
+                                {% csrf_token %}
+                                {{ myform.media }}
+                                 {{form|crispy}}
+
+                            </div>
+                            
+                            
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                 <div class="steps-form-btn button mx-auto">
+                                   <input class="btn  btn-alt" value ="Post Product" type="submit"/>
+                                 </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </section>
+    <!--====== Checkout Form Steps Part Ends ======-->
+
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 {% endblock content %}
     

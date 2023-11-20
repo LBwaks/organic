@@ -43,16 +43,20 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = (
             "title",
-            "unit",
             "category",
             "tag",
-            "description",
+            "unit",
             "price",
             "quantity",
+            "description",
         )
         wigdets = {
             "title": forms.TextInput(
-                attrs={"class": "form-control title", "required": True}
+                attrs={
+                    "placeholder": "eg , Nyandarua Carrots",
+                    "class": "form-control title",
+                    "required": True,
+                }
             ),
             "unit": forms.TextInput(
                 attrs={"class": "form-control unit", "required": True}
