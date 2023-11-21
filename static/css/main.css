@@ -1519,6 +1519,20 @@ ol {
 .header .topbar .top-left .menu-top-link li:last-child {
   margin: 0;
 }
+/* cccccccccccccc */
+.header .topbar .top-left .top-nav-social .menu-top-link li a{
+  /* border: 1px solid #eee; */
+  border-radius: 50%;
+  font-size: 13px;
+  color: #fff;
+}
+
+.header .topbar .top-left .top-nav-social .menu-top-link li a:hover{
+  color: #0167F3;
+  /* background-color: #0167F3; */
+  border-color: transparent;
+}
+
 
 .header .topbar .top-middle {
   text-align: center;
