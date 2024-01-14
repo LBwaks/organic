@@ -58,7 +58,7 @@
                             <h3 class="price">Ksh {{product.price |floatformat:"2g"}}<span>$945</span></h3>
                             <p class="info-text">Availability <span class="text-success"> In Stock</span></p>
                             <div class="row">
-                                <div class="col-lg-4 col-md-4 col-12">
+                                {% comment %} <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group color-option">
                                         <label class="title-label" for="size">Choose color</label>
                                         <div class="single-checkbox checkbox-style-1">
@@ -78,10 +78,10 @@
                                             <label for="checkbox-4"><span></span></label>
                                         </div>
                                     </div>
-                                </div>
+                                </div> {% endcomment %}
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group">
-                                        <label for="color">Battery capacity</label>
+                                        <label for="color">Size </label>
                                         <select class="form-control" id="color">
                                             <option>5100 mAh</option>
                                             <option>6200 mAh</option>
@@ -92,33 +92,41 @@
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="form-group quantity">
                                         <label for="color">Quantity</label>
-                                        <select class="form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
+                                        <br>                                        
+                                            <div class="quantity-button">
+                                                <a href="" class="btn btn-sm border " style="background-color:#d9e6e6;">-</a>
+                                                    <span class="quantity  borlder border-seconldary " style="height:37px"> 1{{cart_item.quantity}}  </span> 
+                                                <a href="" class="btn btn-sm border "style="background-color:#d9e6e6;">+</a> 
+                              
+                                            </div>
+                                         
+                                    </div> 
+                                   
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="form-group">
+
+                                        <label for="color">Add to wishlist</label>
+                                        <br>
+                                        <div class="wish-button">
+                                            <button class="btn"><i class="lni lni-heart"></i></button>
+                                        </div>
+                                     </div>
                                 </div>
                             </div>
                             <div class="bottom-content">
                                 <div class="row align-items-end">
                                     <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="button cart-button">
-                                            <a href ="{% url 'add-to-cart' product.slug %}" class="btn" style="width: 100%;">Add to Cart</a>
+                                        <div class="button cart-button ">
+                                            <a href ="{% url 'add-to-cart' product.slug %}" class="btn py-2" style="width: 100%;">Add to Cart</a>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-12">
+                                    {% comment %} <div class="col-lg-4 col-md-4 col-12">
                                         <div class="wish-button">
                                             <button class="btn"><i class="lni lni-reload"></i> Compare</button>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-12">
-                                        <div class="wish-button">
-                                            <button class="btn"><i class="lni lni-heart"></i> To Wishlist</button>
-                                        </div>
-                                    </div>
+                                    </div> {% endcomment %}
+                                    
                                 </div>
                             </div>
                         </div>
@@ -128,7 +136,7 @@
             <div class="product-details-info">
                 <div class="single-block">
                     <div class="row">
-                        <div class="col-lg-6 col-12">
+                        <div class="col-lg-12 col-12">
                             <div class="info-body custom-responsive-margin">
                                 <h4>Details</h4>
                                 <p>{{product.description}}</p>
@@ -143,27 +151,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-12">
-                            <div class="info-body">
-                                <h4>Specifications</h4>
-                                <ul class="normal-list">
-                                    <li><span>Weight:</span> 35.5oz (1006g)</li>
-                                    <li><span>Maximum Speed:</span> 35 mph (15 m/s)</li>
-                                    <li><span>Maximum Distance:</span> Up to 9,840ft (3,000m)</li>
-                                    <li><span>Operating Frequency:</span> 2.4GHz</li>
-                                    <li><span>Manufacturer:</span> GoPro, USA</li>
-                                </ul>
-                                <h4>Shipping Options:</h4>
-                                <ul class="normal-list">
-                                    <li><span>Courier:</span> 2 - 4 days, $22.50</li>
-                                    <li><span>Local Shipping:</span> up to one week, $10.00</li>
-                                    <li><span>UPS Ground Shipping:</span> 4 - 6 days, $18.00</li>
-                                    <li><span>Unishop Global Export:</span> 3 - 4 days, $25.00</li>
-                                </ul>
-                                <a href="{% url 'update-product' product.slug %} " class="btn btn-primary">Update</a>
-                                <a href="{% url 'delete-product' product.slug %}" class="btn btn-danger">Delete</a>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="row">

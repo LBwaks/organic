@@ -1,3 +1,4 @@
+{% load django_browser_reload %}
 <!DOCTYPE html>
 <html lang="en">
     {% load static %}
@@ -137,6 +138,6 @@
         setInterval(timer, 1000);
     </script>
     
-
+{% django_browser_reload_script %}
 </body>
 </html>
