@@ -52,7 +52,7 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-middle">
                             <ul class="useful-links">
-                                <li><a href="index-2.html">Home</a></li>
+                                <li><a href="{% url 'home' %}">Home</a></li>
                                 <li><a href="about-us.html">About Us</a></li>
                                 <li><a href="contact.html">Contact Us</a></li>
                             </ul>
@@ -89,7 +89,7 @@
                         </a>
                         <!-- End Header Logo -->
                     </div>
-                    <div class="col-lg-5 col-md-7 d-xs-none">
+                    <div class="col-lg-8 col-md-7 d-xs-none">
                         <!-- Start Main Menu Search -->
                         <div class="main-menu-search">
                             <!-- navbar search start -->
@@ -106,14 +106,14 @@
                         </div>
                         <!-- End Main Menu Search -->
                     </div>
-                    <div class="col-lg-4 col-md-2 col-5">
+                    <div class="col-lg-1 col-md-2 col-5">
                         <div class="middle-right-area">
-                            <div class="nav-hotline">
+                            {% comment %} <div class="nav-hotline">
                                 <i class="lni lni-phone"></i>
                                 <h3>Hotline:
                                     <span>(+100) 123 456 7890</span>
                                 </h3>
-                            </div> 
+                            </div>  {% endcomment %}
                             <div class="navbar-cart">
                                 <div class="wishlist">
                                     <a href="javascript:void(0)">
@@ -182,7 +182,7 @@
         <!-- Start Header Bottom -->
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-8 col-md-6 col-12">
+                <div class="col-lg-7 col-md-6 col-12">
                     <div class="nav-inner">
                         <!-- Start Mega Category Menu -->
                         <div class="mega-category-menu">
@@ -228,7 +228,20 @@
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
                                     <li class="nav-item">
-                                        <a href="index-2.html" class="active" aria-label="Toggle navigation">Home</a>
+                                        <a href="{% url 'home' %}" class="active" aria-label="Toggle navigation">Home</a>
+                                    </li>
+                                    <li class="nav-item sub-category" id="sub-category" >
+                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
+                                            data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">Categories</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-2">
+                                            <li class="nav-item"><a href="about-us.html">About Us</a></li>
+                                            <li class="nav-item"><a href="faq.html">Faq</a></li>
+                                            <li class="nav-item"><a href="login.html">Login</a></li>
+                                            <li class="nav-item"><a href="register.html">Register</a></li>
+                                            <li class="nav-item"><a href="mail-success.html">Mail Success</a></li>
+                                            <li class="nav-item"><a href="404.html">404 Error</a></li>
+                                        </ul>
                                     </li>
                                     <li class="nav-item">
                                         <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
@@ -274,29 +287,42 @@
                             </div> <!-- navbar collapse -->
                         </nav>
                         <!-- End Navbar -->
+                        
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-12">
+                <div class="col-lg-5 col-md-6 col-12">
                   
                     <!-- Start Nav Social -->
                     <div class="nav-social">
-                        <h5 class="title">Follow Us:</h5>
+                        
                         <ul>
+                            
                             <li>
-                                <a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><i class="lni lni-instagram"></i></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><i class="lni lni-skype"></i></a>
+                                {% comment %} 
+                                    <input  id="" required>
+                                    
+                                    <input type="submit" value="Search">
+                                </form> {% endcomment %}
+                                <div class="main-menu-search-2">
+                            <!-- navbar search start -->
+                            <div class="navbar-search search-style-5">
+                               {% comment %} <form action="{% url 'search' %}" method="get"> {% endcomment %}
+                                    <div class="search-input">
+
+                                        <input type="search" name="q" placeholder="Search">
+                                    </div>
+                                    <div class="search-btn">
+                                        <button><i class="lni lni-search-alt"></i></button>
+                                    </div>
+                            {% comment %} </form> {% endcomment %}
+                            </div>
+                            <!-- navbar search Ends -->
+                        </div>
                             </li>
                         </ul>
                     </div>
                     <!-- End Nav Social -->
+                    
                 </div>
             </div>
         </div>

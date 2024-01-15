@@ -1,0 +1,98 @@
+
+@media (max-width: 767px) {
+  .header .main-menu-search-2 {
+    /* display: none; */
+  }
+}
+
+.header .main-menu-search-2 .navbar-search {
+  position: relative;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.header .main-menu-search-2 .select-position {
+  position: relative;
+}
+
+.header .main-menu-search-2 .select-position:after {
+  border-bottom: 1.5px solid #081828;
+  border-right: 1.5px solid #081828;
+  content: '';
+  display: block;
+  height: 8px;
+  margin-top: -4px;
+  pointer-events: none;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  -webkit-transform-origin: 66% 66%;
+          transform-origin: 66% 66%;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+  width: 8px;
+}
+
+.header .main-menu-search-2 .select-position select {
+  height: 45px;
+  border: 1px solid #e2e2e2;
+  border-right: 0px;
+  padding: 0 20px;
+  background: transparent;
+  border-radius: 4px 0 0 4px;
+  position: relative;
+  padding-right: 30px;
+  -moz-appearance: none;
+       appearance: none;
+  -webkit-appearance: none;
+  font-size: 14px;
+}
+
+.header .main-menu-search-2 .select-position select:focus {
+  text-decoration: none;
+  outline: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.header .main-menu-search-2 .search-input {
+  width: 100%;
+}
+
+.header .main-menu-search-2 .search-input input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #e2e2e2;
+  background-color: #fff;
+  color: #000;
+  border-radius: 0;
+  padding: 0 15px;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  font-size: 14px;
+}
+
+.header .main-menu-search-2 .search-btn button {
+  background-color: #0167F3;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 0 4px 4px 0;
+  margin-left: -2px;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  font-size: 18px;
+}
+
+.header .main-menu-search-2 .search-btn button:hover {
+  color: #fff;
+  background-color: #081828;
+}
