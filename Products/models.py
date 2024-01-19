@@ -112,7 +112,7 @@ class Product(models.Model):
     price = models.IntegerField(_("Price"))
     percentage_discount = models.ForeignKey(
         ProductDiscount,
-        related_name="product_discount",
+        related_name="percentage_discount",
         blank=True,
         null=True,
         verbose_name=_("Discount (%)"),
@@ -198,7 +198,7 @@ class ProductImage(models.Model):
     product = models.ForeignKey(
         Product,
         related_name="product_image",
-        verbose_name=_(""),
+        verbose_name=_("Product"),
         on_delete=models.CASCADE,
     )
     image = models.ImageField(

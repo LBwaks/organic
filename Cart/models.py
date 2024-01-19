@@ -10,7 +10,9 @@ class Cart(models.Model):
     """Model definition for Cart."""
 
     # TODO: Define fields here
-    user = models.ForeignKey(User, verbose_name=_(""), on_delete=models.CASCADE,blank= True,null=True)
+    user = models.ForeignKey(
+        User, verbose_name=_(""), on_delete=models.CASCADE, blank=True, null=True
+    )
     items = models.ManyToManyField(Product, through="CartItem", verbose_name=_(""))
     created = models.DateTimeField(_(""), auto_now=False, auto_now_add=True)
     session_id = models.CharField(_(""), blank=True, null=True, max_length=100)
@@ -34,6 +36,16 @@ class Cart(models.Model):
     #     return ('')
 
     # TODO: Define custom methods here
+    @property
+    def discount(self):
+        if self.product.percentage_discount:
+            discount_percent = self.product.percentage_discount.discount
+            discount = self.product.price - (
+                (100 - discount_percent) / 100 * self.product.price
+            )
+            return discount
+        return 0
+
     @property
     def total_price(self):
         cart_items = self.cartitems.all()
@@ -80,3 +92,13 @@ class CartItem(models.Model):
     def price(self):
         total_price = self.product.price * self.quantity
         return total_price
+
+    @property
+    def discount(self):
+        if self.product.percentage_discount:
+            discount_percent = self.product.percentage_discount.discount
+            discount = self.product.price - (
+                (100 - discount_percent) / 100 * self.product.price
+            )
+            return discount
+        return 0
