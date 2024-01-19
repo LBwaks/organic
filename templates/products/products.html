@@ -28,20 +28,20 @@
     <section class="product-grids section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-12">
+                {% comment %} <div class="col-lg-3 col-12">
                     <!-- Start Product Sidebar -->
                     <div class="product-sidebar">
                         <!-- Start Single Widget -->
-                        {% comment %} <div class="single-widget search">
+                         <div class="single-widget search">
                             <h3>Search Product</h3>
                             <form action="#">
                                 <input type="text" placeholder="Search Here...">
                                 <button type="submit"><i class="lni lni-search-alt"></i></button>
                             </form>
-                        </div> {% endcomment %}
+                        </div> 
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->
-                        <div class="single-widget">
+                         <div class="single-widget">
                             <h3>All Categories</h3>
                             <ul class="list">
                                  {% for category in categories %}
@@ -54,10 +54,10 @@
                                 </li>
                                 {% endfor %}
                             </ul>
-                        </div>
+                        </div> 
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->
-                        {% comment %} <div class="single-widget range">
+                         <div class="single-widget range">
                             <h3>Price Range</h3>
                             <input type="range" class="form-range" name="range" step="1" min="100" max="10000"
                                 value="10" onchange="rangePrimary.value=value">
@@ -72,10 +72,10 @@
                                         <input type="submit" value="Submit">
                                     </form>
 
-                        </div> {% endcomment %}
+                        </div> 
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->
-                        {% comment %} <div class="single-widget condition">
+                         <div class="single-widget condition">
                             <h3>Filter by Price</h3>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
@@ -101,10 +101,10 @@
                                     $1,000 - $5,000 (213)
                                 </label>
                             </div>
-                        </div> {% endcomment %}
+                        </div> 
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->
-                        {% comment %} <div class="single-widget condition">
+                         <div class="single-widget condition">
                             <h3>Filter by Brand</h3>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault11">
@@ -154,12 +154,12 @@
                                     Panasonic (74)
                                 </label>
                             </div>
-                        </div> {% endcomment %}
+                        </div> 
                         <!-- End Single Widget -->
                     </div>
                     <!-- End Product Sidebar -->
-                </div>
-                <div class="col-lg-9 col-12">
+                </div> {% endcomment %}
+                <div class="col-lg-12 col-12">
                     <div class="product-grids-head">
                        
                         <div class="tab-content" id="nav-tabContent">
@@ -168,7 +168,7 @@
                                 <div class="row">
                                     
 
-                                    <div class="col-lg-4 col-md-6 col-12">
+                                    <div class="col-lg-3 col-md-6 col-12">
                                         <!-- Start Single Product -->
                                         <div class="single-product">
                                             <div class="product-image">
@@ -236,7 +236,7 @@
                                     </div>
 
                                     {% for product in object_list %}
-                                         <div class="col-lg-4 col-md-6 col-12">
+                                         <div class="col-lg-3 col-md-6 col-12">
                                         <!-- Start Single Product -->
                                         <div class="single-product">
                                             <div class="product-image">

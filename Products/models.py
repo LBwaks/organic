@@ -65,6 +65,33 @@ class Tag(models.Model):
         return self.name
 
 
+class ProductDiscount(models.Model):
+    """Model definition for ProductDiscount."""
+
+    # TODO: Define fields here
+    user = models.ForeignKey(User, verbose_name=_(""), on_delete=models.CASCADE)
+    discount = models.DecimalField(
+        _("Percentage Discount"), max_digits=4, decimal_places=2
+    )
+    start_time = models.DateTimeField(
+        _("Discount Start Time"), auto_now=False, auto_now_add=False
+    )
+    end_time = models.DateTimeField(
+        _("Discount End TimeS"), auto_now=False, auto_now_add=False
+    )
+    created = models.DateTimeField(_(""), auto_now_add=True)
+
+    class Meta:
+        """Meta definition for ProductDiscount."""
+
+        verbose_name = "ProductDiscount"
+        verbose_name_plural = "ProductDiscounts"
+
+    def __str__(self):
+        """Unicode representation of ProductDiscount."""
+        return str(self.discount)
+
+
 class Product(models.Model):
     """Model definition for Product."""
 
@@ -83,6 +110,15 @@ class Product(models.Model):
     description = RichTextField()
     unit = models.CharField(_("Unit"), max_length=50)
     price = models.IntegerField(_("Price"))
+    percentage_discount = models.ForeignKey(
+        ProductDiscount,
+        related_name="product_discount",
+        blank=True,
+        null=True,
+        verbose_name=_("Discount (%)"),
+        default=0,
+        on_delete=models.CASCADE,
+    )
     quantity = models.IntegerField(_("Quantity"))
     created = models.DateTimeField(_(""), auto_now=False, auto_now_add=True)
     updated = models.DateTimeField(_(""), auto_now=True, auto_now_add=False)
