@@ -102,3 +102,14 @@ class CartItem(models.Model):
             )
             return discount
         return 0
+
+
+# def total_price(self):
+#     if self.product.percentage_discount:
+#         discount_percent = self.product.percentage_discount.discount
+#         discount = (discount_percent / 100) * self.product.price
+#         discounted_price = self.product.price - discount
+#         total = discounted_price * self.quantity
+#     else:
+#         total = self.product.price * self.quantity
+#     return total
