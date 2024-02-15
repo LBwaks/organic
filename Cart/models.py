@@ -100,7 +100,7 @@ class CartItem(models.Model):
             discount = self.product.price - (
                 (100 - discount_percent) / 100 * self.product.price
             )
-            return discount
+            return discount * self.quantity
         return 0
 
 
